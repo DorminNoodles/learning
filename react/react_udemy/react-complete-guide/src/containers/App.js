@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
-import Person from './Person/Person';
+import classes from './App.css';
+import Person from '../components/Persons/Person/Person';
+import Persons from '../components/Persons/Persons';
+import Cockpit from '../components/Cockpit/Cockpit';
+// import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
 
 class App extends Component {
 	state = {
@@ -51,49 +53,22 @@ class App extends Component {
 	}
 
 	render() {
-		const style = {
-			backgroundColor: 'green',
-			color: 'white',
-			font: 'inherit',
-			border: '1px solid blue',
-			padding: '8px',
-			cursor: 'pointer',
-		};
 
 		let persons = null;
+		let btnClass = '';
 
 		if (this.state.showPersons) {
-			persons = (
-				<div>
-					{this.state.persons.map((person, index) => {
-						return <Person
-							click={() => this.deletePersonHandler(index)}
-							name={person.name}
-							age={person.age}
-							key={person.id}
-							changed={(event) => this.nameChangedHandler(event, person.id)}
-							/>
-					})}
-				</div>
-			);
-			style.backgroundColor = 'red';
-		}
-
-		let classes = [];
-		if (this.state.persons.length <= 2) {
-			classes.push('red'); //classes = ['red']
-		}
-		if (this.state.persons.length <= 1) {
-			classes.push('bold'); // classes = ['red', 'bold']
+			persons = <Persons
+						persons={this.state.persons}
+						clicked={this.deletePersonHandler}
+						chanded={this.nameChangedHandler} />;
 		}
 
 		return (
-			<div className="App">
-				<h1>Hi, I m a React App</h1>
-				<p className={classes.join(' ')}>This is working</p>
-				<button
-				 	style={style}
-					onClick={this.togglePersonsHandler}>Toggle Name</button>
+			<div className={classes.App}>
+				<Cockpit
+					showPersons={this.state.showPersons}
+					persons={this.state.persons} />
 				{persons}
 			</div>
 		);
