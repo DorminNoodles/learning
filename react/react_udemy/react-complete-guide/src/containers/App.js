@@ -6,6 +6,12 @@ import Cockpit from '../components/Cockpit/Cockpit';
 // import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
 
 class App extends Component {
+	constructor(props) {
+		super(props);
+		console.log('[App.js] Inside Constructor' + props);
+		// this.props.title
+	}
+
 	state = {
 		persons: [
 			{id: '1fefe', name: 'Max', age: 28},
@@ -14,6 +20,14 @@ class App extends Component {
 		],
 		otherState: 'pouet',
 		showPersons: false,
+	};
+
+	componentWillMount() {
+		console.log('[App.js] Inside componentWillMount()');
+	}
+
+	componentDidMount() {
+		console.log('[App.js] Inside componentDidMount()');
 	}
 
 	nameChangedHandler = (event, id) => {
@@ -36,9 +50,7 @@ class App extends Component {
 		const persons = [...this.state.persons];
 		persons[personIndex] = person;
 
-
 		this.setState({persons: persons});
-
 	}
 
 	deletePersonHandler = (personIndex) => {
@@ -54,6 +66,8 @@ class App extends Component {
 
 	render() {
 
+		console.log('[App.js] Inside render()');
+
 		let persons = null;
 		let btnClass = '';
 
@@ -67,8 +81,10 @@ class App extends Component {
 		return (
 			<div className={classes.App}>
 				<Cockpit
+					appTitle={this.props.title}
 					showPersons={this.state.showPersons}
-					persons={this.state.persons} />
+					persons={this.state.persons}
+					clicked={this.togglePersonsHandler} />
 				{persons}
 			</div>
 		);
