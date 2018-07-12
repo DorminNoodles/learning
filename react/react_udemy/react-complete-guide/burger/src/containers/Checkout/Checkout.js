@@ -16,7 +16,6 @@ class Checkout extends Component {
 	}
 
 	render () {
-		console.log("HERE ", this.state.ingredients);
 		return (
 			<div>
 				<CheckoutSummary
