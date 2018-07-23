@@ -44,7 +44,7 @@ export const auth = (email, password, isSignup) => {
 		const authData = {
 			email: email,
 			password: password,
-			returenSecureToken: true
+			returnSecureToken: true
 		};
 		let url = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyBYzNXLm5XVJyfaggNK_TJYLfQ3Vk0opPY';
 		if (!isSignup) {
@@ -52,10 +52,9 @@ export const auth = (email, password, isSignup) => {
 		}
 		axios.post(url, authData)
 			.then(response => {
-				console.log(response.data);
+				console.log("response = > ", response);
 				dispatch(authSuccess(response.data.idToken, response.data.localId));
-				console.log("Id Token : ", response.data.idToken);
-				dispatch(checkAuthTimeout(3600));
+				dispatch(checkAuthTimeout(response.data.expiresIn));
 			})
 			.catch(err => {
 				dispatch(authFail(err.response.data.error));
