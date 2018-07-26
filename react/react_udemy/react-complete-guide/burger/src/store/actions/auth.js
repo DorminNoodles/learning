@@ -33,7 +33,6 @@ export const logout = () => {
 
 export const checkAuthTimeout = (expirationDate) => {
 	return dispatch => {
-		console.log(expirationDate);
 		setTimeout(() => {
 			dispatch(logout());
 		}, expirationDate * 1000);
@@ -41,7 +40,6 @@ export const checkAuthTimeout = (expirationDate) => {
 };
 
 export const auth = (email, password, isSignup) => {
-	console.log("Signup : ", isSignup);
 	return dispatch => {
 		dispatch(authStart());
 		const authData = {
@@ -55,7 +53,6 @@ export const auth = (email, password, isSignup) => {
 		}
 		axios.post(url, authData)
 			.then(response => {
-				console.log("response = > ", response);
 				const expirationDate = new Date(new Date().getTime() + response.data.expiresIn * 1000);
 				localStorage.setItem('token', response.data.idToken);
 				localStorage.setItem('expirationDate', expirationDate);

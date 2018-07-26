@@ -23,7 +23,6 @@ class BurgerBuilder extends Component {
 	}
 
 	componentDidMount () {
-		console.log(this.props);
 		this.props.onInitIngredients();
 	}
 
@@ -56,7 +55,6 @@ class BurgerBuilder extends Component {
 		this.props.history.push('/checkout');
 	}
 
-
 	render () {
 		const disabledInfo = {
 			...this.props.ings
@@ -78,7 +76,6 @@ class BurgerBuilder extends Component {
 						disabled={disabledInfo}
 						purchasable={this.updatePurchaseState(this.props.ings)}
 						ordered={this.purchaseHandler}
-						price={this.props.price}
 						isAuth={this.props.isAuthenticated}
 						price={this.props.price} />
 				</Aux>
